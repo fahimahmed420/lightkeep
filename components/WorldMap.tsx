@@ -113,7 +113,7 @@ export function WorldMap({ className = "", dark = false }: { className?: string;
             strokeWidth={1.2}
             strokeLinecap="round"
             className="draw text-signal"
-            style={{ ["--d" as string]: `${1.2 + i * 0.25}s`, opacity: 0.7 }}
+            style={{ ["--d" as string]: `${1.2 + i * 0.25}s`, opacity: 0.35 }}
           />
         );
       })}

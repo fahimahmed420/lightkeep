@@ -56,7 +56,7 @@ export default async function Home() {
               </Button>
             </div>
             <p className="fade-up mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted" style={{ ["--d" as string]: "300ms" }}>
-              Free for 10 monitors · No card · 2-minute setup
+              Free for 10 monitors · No card · 2&#8209;minute setup
             </p>
           </div>
 

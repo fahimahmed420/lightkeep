@@ -43,7 +43,7 @@ function BrowserBar({ url }: { url: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-line-2" />
         <span className="h-2.5 w-2.5 rounded-full bg-line-2" />
       </div>
-      <p className="min-w-0 flex-1 truncate break-all rounded-md bg-white/80 px-3 py-1 text-center font-mono text-[0.72rem] text-muted ring-1 ring-line">{url}</p>
+      <p className="min-w-0 flex-1 truncate rounded-md bg-white/80 px-3 py-1 text-center font-mono text-[0.72rem] text-muted ring-1 ring-line">{url}</p>
       <span className="hidden w-10 sm:block" />
     </div>
   );
