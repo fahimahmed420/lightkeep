@@ -14,9 +14,10 @@ export function DocsNav({ groups }: { groups: Group[] }) {
   const filtered = groups
     .map((g) => ({ ...g, pages: g.pages.filter((p) => !term || p.title.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)) }))
     .filter((g) => g.pages.length);
+  const total = groups.reduce((n, g) => n + g.pages.length, 0);
 
   return (
-    <aside className="lg:sticky lg:top-24 lg:self-start">
+    <aside className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-2">
       <label htmlFor="doc-search" className="sr-only">
         Search docs
       </label>
@@ -30,15 +31,21 @@ export function DocsNav({ groups }: { groups: Group[] }) {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search docs"
-          className="min-h-11 w-full rounded-full border border-line bg-white pl-10 pr-4 text-base outline-none focus:border-ink"
+          placeholder={`Search ${total} pages`}
+          className="min-h-11 w-full rounded-xl border border-line bg-white pl-10 pr-12 text-base shadow-[var(--shadow-card)] outline-none transition-colors focus:border-ink"
         />
+        <kbd aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-line bg-cloud px-1.5 font-mono text-[0.7rem] text-muted sm:block">
+          /
+        </kbd>
       </div>
       <nav aria-label="Documentation" className="mt-6 space-y-6">
         {filtered.map((g) => (
           <div key={g.id}>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted">{g.name}</p>
-            <ul className="mt-2 space-y-0.5">
+            <p className="flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted">
+              <span aria-hidden="true" className="h-px w-3 bg-current opacity-60" />
+              {g.name}
+            </p>
+            <ul className="mt-2 space-y-0.5 border-l border-line">
               {g.pages.map((p) => {
                 const href = `/docs/${p.slug}`;
                 const active = pathname === href;
@@ -47,7 +54,7 @@ export function DocsNav({ groups }: { groups: Group[] }) {
                     <Link
                       href={href}
                       aria-current={active ? "page" : undefined}
-                      className={`flex min-h-10 items-center rounded-lg px-3 text-[0.95rem] transition-colors ${active ? "bg-signal-soft font-medium text-signal-2" : "text-ink-2 hover:bg-cloud"}`}
+                      className={`-ml-px flex min-h-10 items-center border-l-2 pl-4 pr-3 text-[0.95rem] transition-colors ${active ? "border-signal font-medium text-signal-2" : "border-transparent text-ink-2 hover:border-line-2 hover:text-ink"}`}
                     >
                       {p.title}
                     </Link>

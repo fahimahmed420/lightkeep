@@ -4,7 +4,7 @@ import { useActionState, useSyncExternalStore } from "react";
 import { requestDemo, type ContactState } from "./actions";
 
 const field =
-  "mt-2 block w-full rounded-xl border border-line-2 bg-white px-4 py-3 text-base outline-none transition-colors placeholder:text-muted/60 focus:border-ink aria-[invalid=true]:border-red";
+  "block w-full rounded-xl border border-line-2 bg-white px-4 py-3 text-base outline-none transition-colors placeholder:text-muted/60 focus:border-ink aria-[invalid=true]:border-red";
 const noop = () => () => {};
 
 export function DemoForm() {
@@ -39,22 +39,22 @@ export function DemoForm() {
       <input type="hidden" name="plan" value={v.plan ?? planFromUrl} />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="text-sm font-medium">Full name</label>
+          <label htmlFor="name" className="flex min-h-11 items-end pb-1 text-sm font-medium">Full name</label>
           <input id="name" name="name" autoComplete="name" defaultValue={v.name} className={field} {...a("name")} />
           {err("name")}
         </div>
         <div>
-          <label htmlFor="email" className="text-sm font-medium">Work email</label>
+          <label htmlFor="email" className="flex min-h-11 items-end pb-1 text-sm font-medium">Work email</label>
           <input id="email" name="email" type="email" autoComplete="email" defaultValue={v.email} className={field} {...a("email")} />
           {err("email")}
         </div>
         <div>
-          <label htmlFor="company" className="text-sm font-medium">Company</label>
+          <label htmlFor="company" className="flex min-h-11 items-end pb-1 text-sm font-medium">Company</label>
           <input id="company" name="company" autoComplete="organization" defaultValue={v.company} className={field} {...a("company")} />
           {err("company")}
         </div>
         <div>
-          <label htmlFor="size" className="text-sm font-medium">Team size</label>
+          <label htmlFor="size" className="flex min-h-11 items-end pb-1 text-sm font-medium">Team size</label>
           <select id="size" name="size" defaultValue={v.size ?? ""} className={field} {...a("size")}>
             <option value="" disabled>
               Choose one
@@ -67,7 +67,7 @@ export function DemoForm() {
         </div>
       </div>
       <div>
-        <label htmlFor="message" className="text-sm font-medium">
+        <label htmlFor="message" className="flex min-h-11 items-end pb-1 text-sm font-medium">
           What are you monitoring today? <span className="text-muted">(optional)</span>
         </label>
         <textarea id="message" name="message" rows={4} defaultValue={v.message} className={field} {...a("message")} />

@@ -27,11 +27,17 @@ export function LiveCheck() {
     };
   }, []);
 
-  if (!info) return <span className="font-mono text-sm opacity-70">Checking…</span>;
-  const ago = Math.max(0, Math.round(((now || info.at) - info.at) / 1000));
+  const ago = info ? Math.max(0, Math.round(((now || info.at) - info.at) / 1000)) : 0;
   return (
-    <span className="font-mono text-sm opacity-80" aria-live="polite">
-      Checked {ago < 2 ? "just now" : `${ago}s ago`} · {info.ms} ms
+    <span className="inline-flex min-h-11 items-center gap-2.5 rounded-full border border-signal-3/30 bg-night/60 px-4 font-mono text-sm text-signal-3 backdrop-blur" aria-live="polite">
+      <span className="relative inline-block h-2 w-2 rounded-full bg-signal-3 text-signal-3 pulse" />
+      {info ? (
+        <>
+          Checked {ago < 2 ? "just now" : `${ago}s ago`} · {info.ms} ms
+        </>
+      ) : (
+        "Checking…"
+      )}
     </span>
   );
 }

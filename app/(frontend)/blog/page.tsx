@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Container, PageIntro } from "@/components/ui";
-import { PostCard } from "@/components/PostCard";
+import { Container, PageIntro, formatDate } from "@/components/ui";
+import { CoverArt, PostCard, catLabel } from "@/components/PostCard";
 import { getCMS } from "@/lib/payload";
 
 export const metadata: Metadata = { title: "Blog", description: "Guides, postmortems and engineering notes on running reliable software." };
@@ -29,8 +29,8 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
 
   return (
     <>
-      <PageIntro kicker="Blog" title="Notes on reliability." intro="Practical guides, honest postmortems and how we build Lightkeep." />
-      <section className="py-14 sm:py-20">
+      <PageIntro kicker="Blog" title={<>Notes on <em className="text-signal">reliability</em>.</>} intro="Practical guides, honest postmortems and how we build Lightkeep. New posts most weeks; there's an RSS feed if you prefer." />
+      <section className="py-12 sm:py-16">
         <Container>
           <nav aria-label="Categories" className="flex gap-2 overflow-x-auto pb-2">
             {cats.map(([v, l]) => (
@@ -43,26 +43,29 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
                 {l}
               </Link>
             ))}
+            <a href="/blog/rss.xml" className="ml-auto flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 font-mono text-xs text-muted hover:text-ink">
+              RSS
+            </a>
           </nav>
           {lead ? (
             <>
-              <div className="mt-10">
-                <Link href={`/blog/${lead.slug}`} className="group grid overflow-hidden rounded-3xl border border-line bg-white md:grid-cols-2">
-                  <div className="relative min-h-56 bg-gradient-to-br from-signal-soft to-[#bfe6d3]">
-                    <svg aria-hidden="true" viewBox="0 0 160 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full opacity-60">
-                      <path d="M0 70 C30 60 40 30 70 40 S120 80 160 30" fill="none" stroke="#0f6e49" strokeWidth="1.2" />
-                    </svg>
+              <Link href={`/blog/${lead.slug}`} data-reveal className="group mt-8 grid overflow-hidden rounded-3xl border border-line bg-white transition-shadow hover:shadow-[var(--shadow-float)] md:grid-cols-[1.1fr_0.9fr]">
+                <CoverArt category={lead.category} seed={(lead.slug ?? "").length * 977 + 5} className="min-h-60 md:min-h-full" />
+                <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Latest · {catLabel[lead.category] ?? lead.category}</p>
+                  <h2 className="mt-4 text-4xl leading-[1.05] group-hover:text-signal-2 lg:text-5xl">{lead.title}</h2>
+                  <p className="mt-5 text-lg leading-relaxed text-muted">{lead.excerpt}</p>
+                  <p className="mt-6 font-mono text-xs text-muted">
+                    {lead.author} · {formatDate(lead.publishedAt)}
+                    {lead.readingTime ? ` · ${lead.readingTime} min read` : ""}
+                  </p>
+                </div>
+              </Link>
+              <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {rest.map((p, i) => (
+                  <div key={p.id} data-reveal style={{ ["--d" as string]: `${(i % 3) * 70}ms` }}>
+                    <PostCard post={p} />
                   </div>
-                  <div className="p-8 sm:p-10">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-signal">Latest</p>
-                    <h2 className="mt-3 text-4xl leading-tight group-hover:text-signal-2">{lead.title}</h2>
-                    <p className="mt-4 text-lg text-muted">{lead.excerpt}</p>
-                  </div>
-                </Link>
-              </div>
-              <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {rest.map((p) => (
-                  <PostCard key={p.id} post={p} />
                 ))}
               </div>
             </>

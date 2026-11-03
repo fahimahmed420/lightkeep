@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { regions } from "@/content/site";
-import { ArrowRight, Button, Check, Container, PageIntro, SectionHead, StatusDot } from "@/components/ui";
-import { DashboardMock, Sparkline } from "@/components/product";
+import { ArrowRight, Button, Check, Container, PageIntro, SectionHead } from "@/components/ui";
+import { DashboardMock, LatencyChart, Sparkline } from "@/components/product";
+import { ApiAssert, Cell, CellHead, ConfirmationDots, CronCalendar, RegionGrid, SslRing } from "@/components/bento";
+import { WorldMap } from "@/components/WorldMap";
 
 export const metadata: Metadata = { title: "Monitoring", description: "HTTP, API, SSL, cron heartbeat and keyword checks every 30 seconds from 12 regions, with multi-region confirmation." };
 
@@ -17,19 +18,23 @@ const types = [
 export default function MonitoringPage() {
   return (
     <>
-      <PageIntro kicker="Monitoring" title="Every 30 seconds, from 12 regions." intro="Lightkeep checks what your customers actually use and confirms every failure from three locations before it alerts anyone.">
-        <Button href="/pricing">Start free <ArrowRight /></Button>
-        <Button href="/docs" variant="outline">Read the docs</Button>
+      <PageIntro kicker="Monitoring" title={<>Every 30 seconds, from <em className="text-signal">12 regions</em>.</>} intro="Lightkeep checks what your customers actually use and confirms every failure from three locations before it alerts anyone.">
+        <Button href="/pricing">
+          Start free <ArrowRight />
+        </Button>
+        <Button href="/docs" variant="outline">
+          Read the docs
+        </Button>
       </PageIntro>
 
-      <section className="py-24 sm:py-28">
+      <section className="py-16 sm:py-20 lg:py-24">
         <Container>
           <SectionHead kicker="Check types" title="Six ways to know it works." />
-          <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {types.map(([t, d], i) => (
-              <div key={t} data-reveal style={{ ["--d" as string]: `${(i % 3) * 70}ms` }} className="bg-white p-7">
-                <Sparkline seed={i + 30} className="h-8 w-full" />
-                <h3 className="mt-5 text-2xl">{t}</h3>
+              <div key={t} data-reveal style={{ ["--d" as string]: `${(i % 3) * 70}ms` }} className="group bg-white p-7 transition-colors hover:bg-paper">
+                <Sparkline seed={i + 30} draw delay={0.2 + i * 0.1} className="h-10 w-full" />
+                <h3 className="mt-5 text-2xl group-hover:text-signal-2">{t}</h3>
                 <p className="mt-2 text-muted">{d}</p>
               </div>
             ))}
@@ -37,30 +42,60 @@ export default function MonitoringPage() {
         </Container>
       </section>
 
-      <section className="border-y border-line bg-white py-24 sm:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
+      <section className="night-grid night-glow grain relative overflow-hidden py-16 text-white sm:py-20 lg:py-24">
+        <div aria-hidden="true" className="absolute inset-0 opacity-60 [mask-image:linear-gradient(180deg,transparent,#000_25%,#000_75%,transparent)]">
+          <WorldMap dark className="absolute left-1/2 top-1/2 w-[max(100%,1100px)] -translate-x-1/2 -translate-y-1/2" />
+        </div>
+        <Container className="relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
-            <SectionHead kicker="Global network" title="Twelve regions, one verdict." intro="When a check fails, three other regions retry immediately. You only hear about failures that are real." />
-            <ul className="mt-8 space-y-3">
+            <SectionHead light kicker="Global network" title="Twelve regions, one verdict." intro="When a check fails, three other regions retry immediately. You only hear about failures that are real." />
+            <ul className="mt-8 space-y-3 text-lg">
               {["Median confirmation time: 9 seconds", "Response time measured per region", "Per-region thresholds for latency-sensitive APIs"].map((t) => (
-                <li key={t} className="flex items-center gap-3"><Check /> {t}</li>
+                <li key={t} className="flex items-center gap-3">
+                  <Check className="h-4 w-4 text-signal-3" /> {t}
+                </li>
               ))}
             </ul>
           </div>
-          <ul data-reveal className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {regions.map((r, i) => (
-              <li key={r} className="flex items-center justify-between gap-2 rounded-2xl border border-line bg-paper px-4 py-3 text-sm">
-                <span className="flex items-center gap-2"><StatusDot status={i === 5 ? "degraded" : "up"} /> {r}</span>
-                <span className="font-mono text-xs text-muted">{[38, 41, 112, 52, 76, 91, 84, 168, 143, 155, 201, 189][i]}</span>
-              </li>
-            ))}
-          </ul>
+          <div data-reveal className="rounded-3xl border border-white/10 bg-night/70 p-5 backdrop-blur sm:p-6">
+            <p className="font-mono text-[0.7rem] uppercase tracking-wider text-fog">api.parcelry.com · 24 h · ms</p>
+            <LatencyChart dark className="mt-3 h-44 sm:h-52" />
+            <div className="mt-5">
+              <RegionGrid />
+            </div>
+          </div>
         </Container>
       </section>
 
-      <section className="py-24 sm:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div data-reveal className="lg:order-2"><DashboardMock /></div>
+      <section className="py-16 sm:py-20 lg:py-24">
+        <Container>
+          <SectionHead kicker="Beyond uptime" title="Checks that catch the quiet failures." intro="A 200 isn't proof of life. These checks look at what the response says, when jobs run and when certificates expire." />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            <Cell dark>
+              <CellHead light kicker="Confirmation" title="Three must agree." />
+              <ConfirmationDots />
+            </Cell>
+            <Cell delay={80}>
+              <CellHead kicker="API checks" title="Assert on the body." />
+              <ApiAssert />
+            </Cell>
+            <Cell delay={160}>
+              <CellHead kicker="Cron heartbeats" title="Silence is a signal." />
+              <CronCalendar />
+            </Cell>
+            <Cell delay={240}>
+              <CellHead kicker="SSL & domains" title="Expiry, counted down." />
+              <SslRing />
+            </Cell>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-white py-16 sm:py-20 lg:py-24">
+        <Container className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+          <div data-reveal className="min-w-0">
+            <DashboardMock live />
+          </div>
           <SectionHead kicker="Monitoring as code" title="Review monitors like any other change." intro="Manage monitors with our Terraform provider or REST API, so new services ship with monitoring from day one." />
         </Container>
       </section>

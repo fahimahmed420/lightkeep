@@ -14,7 +14,7 @@ export default async function DocsLayout({ children }: { children: React.ReactNo
     .filter((g) => g.pages.length);
 
   return (
-    <Container className="grid gap-10 py-10 lg:grid-cols-[16rem_1fr] lg:py-14">
+    <Container className="grid gap-10 py-10 lg:grid-cols-[17rem_1fr] lg:gap-14 lg:py-14">
       <DocsNav groups={groups} />
       <div className="min-w-0">{children}</div>
     </Container>
