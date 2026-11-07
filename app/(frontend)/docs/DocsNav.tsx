@@ -34,14 +34,14 @@ export function DocsNav({ groups }: { groups: Group[] }) {
           placeholder={`Search ${total} pages`}
           className="min-h-11 w-full rounded-xl border border-line bg-white pl-10 pr-12 text-base shadow-[var(--shadow-card)] outline-none transition-colors focus:border-ink"
         />
-        <kbd aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-line bg-cloud px-1.5 font-mono text-[0.7rem] text-muted sm:block">
+        <kbd aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-line bg-cloud px-1.5 font-mono text-[0.75rem] text-muted sm:block">
           /
         </kbd>
       </div>
       <nav aria-label="Documentation" className="mt-6 space-y-6">
         {filtered.map((g) => (
           <div key={g.id}>
-            <p className="flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted">
+            <p className="flex items-center gap-2 font-mono text-[0.75rem] uppercase tracking-[0.2em] text-muted">
               <span aria-hidden="true" className="h-px w-3 bg-current opacity-60" />
               {g.name}
             </p>

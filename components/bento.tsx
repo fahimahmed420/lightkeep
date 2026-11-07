@@ -21,7 +21,7 @@ export function Cell({ children, className = "", dark = false, delay = 0 }: { ch
 export function CellHead({ kicker, title, body, light = false }: { kicker: string; title: string; body?: string; light?: boolean }) {
   return (
     <div className="p-6 pb-0 sm:p-7 sm:pb-0">
-      <p className={`font-mono text-[0.7rem] uppercase tracking-[0.2em] ${light ? "text-signal-3" : "text-signal"}`}>{kicker}</p>
+      <p className={`font-mono text-[0.75rem] uppercase tracking-[0.2em] ${light ? "text-signal-3" : "text-signal"}`}>{kicker}</p>
       <h3 className={`mt-2 text-2xl leading-tight lg:text-[1.7rem] ${light ? "text-white" : "text-ink"}`}>{title}</h3>
       {body && <p className={`mt-2 leading-relaxed ${light ? "text-fog" : "text-muted"}`}>{body}</p>}
     </div>
@@ -83,7 +83,7 @@ export function CronCalendar() {
     <div className="mt-auto p-6 pt-5 sm:p-7 sm:pt-5">
       <div className="grid grid-cols-7 gap-1.5">
         {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-          <span key={i} className="text-center font-mono text-[0.7rem] text-muted">
+          <span key={i} className="text-center font-mono text-[0.75rem] text-muted">
             {d}
           </span>
         ))}
@@ -119,15 +119,15 @@ export function SslRing() {
       </svg>
       <dl className="min-w-0 space-y-1.5 text-sm">
         <div>
-          <dt className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">Certificate</dt>
+          <dt className="font-mono text-[0.75rem] uppercase tracking-wider text-muted">Certificate</dt>
           <dd className="truncate font-medium text-ink">*.parcelry.com</dd>
         </div>
         <div>
-          <dt className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">Issuer</dt>
+          <dt className="font-mono text-[0.75rem] uppercase tracking-wider text-muted">Issuer</dt>
           <dd className="text-ink-2">Let&apos;s Encrypt R11</dd>
         </div>
         <div>
-          <dt className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">Reminders</dt>
+          <dt className="font-mono text-[0.75rem] uppercase tracking-wider text-muted">Reminders</dt>
           <dd className="text-ink-2">30 · 14 · 3 days</dd>
         </div>
       </dl>
@@ -176,7 +176,7 @@ export function OnCallRota() {
       <div className="grid grid-cols-7 gap-1.5">
         {rota.map(([d, who, c], i) => (
           <div key={d} className="min-w-0 text-center">
-            <p className="font-mono text-[0.7rem] text-muted">{d}</p>
+            <p className="font-mono text-[0.75rem] text-muted">{d}</p>
             <p className={`mt-1 truncate rounded-lg px-1 py-2 text-xs font-medium ${rotaColor[c]} ${i === 2 ? "ring-2 ring-ink/30 ring-offset-2" : ""}`}>{who}</p>
           </div>
         ))}

@@ -68,7 +68,7 @@ export default async function Home() {
             <AlertCard className="slide-in absolute -bottom-20 right-3 hidden md:block lg:-right-6 lg:-bottom-16" />
             <ul className="fade-up relative mt-5 hidden max-w-[calc(100%-21rem)] flex-wrap gap-1.5 lg:flex" style={{ ["--d" as string]: "600ms" }} aria-label="Check regions">
               {regions.map((r, i) => (
-                <li key={r} className={`flex items-center gap-1.5 rounded-full border bg-white/80 px-2.5 py-1 font-mono text-[0.7rem] backdrop-blur ${i === 5 ? "border-amber/40 text-amber" : "border-line text-muted"}`}>
+                <li key={r} className={`flex items-center gap-1.5 rounded-full border bg-white/80 px-2.5 py-1 font-mono text-[0.75rem] backdrop-blur ${i === 5 ? "border-amber/40 text-amber" : "border-line text-muted"}`}>
                   <StatusDot status={i === 5 ? "degraded" : "up"} /> {r} <span className="tabular opacity-70">{regionMs[i]}ms</span>
                 </li>
               ))}

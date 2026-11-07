@@ -38,7 +38,7 @@ export function Header() {
 
   return (
     <header className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled || open ? "border-line bg-paper/90 backdrop-blur-lg" : "border-transparent bg-paper"}`}>
-      <Container className="flex h-16 items-center justify-between gap-6">
+      <Container className="flex h-16 items-center justify-between gap-4 xl:gap-6">
         <Link href="/" aria-label="Lightkeep home" className="py-2">
           <Logo />
         </Link>
@@ -50,7 +50,7 @@ export function Header() {
               aria-expanded={drop}
               aria-controls="product-menu"
               onClick={() => setDrop((d) => !d)}
-              className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.95rem] transition-colors hover:bg-cloud ${active("/product") ? "text-ink" : "text-muted"}`}
+              className={`flex items-center gap-1 rounded-full px-3 py-2 text-[0.95rem] transition-colors hover:bg-cloud xl:px-3.5 ${active("/product") ? "text-ink" : "text-muted"}`}
             >
               Product
               <svg aria-hidden="true" viewBox="0 0 24 24" className={`h-4 w-4 transition-transform ${drop ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2">
@@ -73,18 +73,19 @@ export function Header() {
               key={l.href}
               href={l.href}
               aria-current={active(l.href) ? "page" : undefined}
-              className={`rounded-full px-3.5 py-2 text-[0.95rem] transition-colors hover:bg-cloud ${active(l.href) ? "text-ink" : "text-muted"}`}
+              className={`whitespace-nowrap rounded-full px-3 py-2 text-[0.95rem] transition-colors hover:bg-cloud xl:px-3.5 ${active(l.href) ? "text-ink" : "text-muted"}`}
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <Link href="/contact" className="rounded-full px-4 py-2 text-[0.95rem] text-ink hover:bg-cloud">
+        {/* nowrap: at the 1024px breakpoint the labels used to break onto two lines. */}
+        <div className="hidden items-center gap-1 lg:flex xl:gap-2">
+          <Link href="/contact" className="whitespace-nowrap rounded-full px-4 py-2 text-[0.95rem] text-ink hover:bg-cloud">
             Book a demo
           </Link>
-          <Link href="/pricing" className="inline-flex min-h-10 items-center rounded-full bg-ink px-5 text-[0.95rem] font-medium text-white transition-colors hover:bg-signal-2">
+          <Link href="/pricing" className="inline-flex min-h-10 items-center whitespace-nowrap rounded-full bg-ink px-5 text-[0.95rem] font-medium text-white transition-colors hover:bg-signal-2">
             Start free
           </Link>
         </div>

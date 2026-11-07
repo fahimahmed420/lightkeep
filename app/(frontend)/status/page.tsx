@@ -26,16 +26,16 @@ export default function StatusPage() {
               ["Uptime · 90d", `${overall.toFixed(3)}%`],
               ["Components", `${comps.length} of ${comps.length} up`],
               ["Open incidents", "0"],
-              ["Last incident", "6 days ago"],
+              ["Last incident", incidents[0].date.replace(/,.*$/, "")],
             ].map(([k, v]) => (
               <div key={k} className="bg-night/80 px-5 py-4 backdrop-blur">
-                <dt className="font-mono text-[0.7rem] uppercase tracking-wider text-fog">{k}</dt>
+                <dt className="font-mono text-[0.75rem] uppercase tracking-wider text-fog">{k}</dt>
                 <dd className="mt-1 font-mono text-xl tabular-nums text-white">{v}</dd>
               </div>
             ))}
           </dl>
           <div className="mt-6 rounded-2xl border border-white/10 bg-night/70 p-5 backdrop-blur">
-            <p className="font-mono text-[0.7rem] uppercase tracking-wider text-fog">API response time · last 24 h · ms</p>
+            <p className="font-mono text-[0.75rem] uppercase tracking-wider text-fog">API response time · last 24 h · ms</p>
             <LatencyChart dark className="mt-3 h-44 sm:h-52" seeds={[["Public API", 3, "#7fd3ac"], ["Dashboard", 2, "#9ec5ff"], ["Status pages", 7, "#f2c879"]]} />
           </div>
         </Container>
@@ -64,7 +64,7 @@ export default function StatusPage() {
                         </span>
                       </div>
                       <UptimeBars days={c.days} className="mt-3 h-8" />
-                      <div className="mt-1.5 flex justify-between font-mono text-[0.7rem] text-muted">
+                      <div className="mt-1.5 flex justify-between font-mono text-[0.75rem] text-muted">
                         <span>90 days ago</span>
                         <span>Today</span>
                       </div>

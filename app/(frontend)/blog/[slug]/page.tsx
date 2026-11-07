@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { Container, formatDate } from "@/components/ui";
 import { CoverArt, PostCard, catLabel } from "@/components/PostCard";
@@ -9,7 +10,8 @@ import { getCMS, getEditor } from "@/lib/payload";
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ preview?: string }> };
 
-async function load(slug: string, preview: boolean) {
+/** Cached per request, so generateMetadata and the page share one database read. */
+const load = cache(async (slug: string, preview: boolean) => {
   const payload = await getCMS();
   const editor = preview ? await getEditor() : null;
   const { docs } = await payload.find({
@@ -22,11 +24,11 @@ async function load(slug: string, preview: boolean) {
     depth: 1,
   });
   return { post: docs[0], editor };
-}
+});
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const { post } = await load(slug, false);
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const [{ slug }, { preview }] = await Promise.all([params, searchParams]);
+  const { post } = await load(slug, preview === "1");
   if (!post) return { title: "Not found" };
   return { title: post.title, description: post.excerpt, openGraph: { type: "article", title: post.title, description: post.excerpt, publishedTime: post.publishedAt ?? undefined } };
 }

@@ -58,7 +58,7 @@ export default function MonitoringPage() {
             </ul>
           </div>
           <div data-reveal className="rounded-3xl border border-white/10 bg-night/70 p-5 backdrop-blur sm:p-6">
-            <p className="font-mono text-[0.7rem] uppercase tracking-wider text-fog">api.parcelry.com · 24 h · ms</p>
+            <p className="font-mono text-[0.75rem] uppercase tracking-wider text-fog">api.parcelry.com · 24 h · ms</p>
             <LatencyChart dark className="mt-3 h-44 sm:h-52" />
             <div className="mt-5">
               <RegionGrid />

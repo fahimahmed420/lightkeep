@@ -8,8 +8,10 @@ import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { DemoBadge } from "@/components/DemoBadge";
 
-const fraunces = Fraunces({ subsets: ["latin"], axes: ["opsz", "SOFT"], variable: "--font-fraunces", display: "swap" });
-const instrument = Instrument_Sans({ subsets: ["latin"], axes: ["wdth"], variable: "--font-instrument", display: "swap" });
+// Fraunces carries weight and optical size only: the SOFT axis doubled the file for a barely visible change in the terminals.
+const fraunces = Fraunces({ subsets: ["latin"], axes: ["opsz"], variable: "--font-fraunces", display: "swap" });
+// Body and mono at their default axes; nothing on the site uses the width axis.
+const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument", display: "swap" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
 export const metadata: Metadata = {

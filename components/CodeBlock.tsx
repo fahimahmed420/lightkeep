@@ -91,7 +91,7 @@ export function AlertPayload({ className = "" }: { className?: string }) {
   ];
   return (
     <div className={`hairline min-w-0 overflow-hidden rounded-2xl bg-night shadow-[var(--shadow-glow)] ${className}`}>
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-[0.7rem] text-fog">
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 font-mono text-[0.75rem] text-fog">
         <span className="flex min-w-0 items-center gap-2 truncate">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-signal" /> POST https://hooks.yourapp.com/lightkeep
         </span>

@@ -1,10 +1,16 @@
+"use client";
+
 import { regions } from "@/content/site";
 
 /*
-  A dotted world map drawn on the server. Continents are rough polygons in lon/lat;
-  a 3° grid is tested against them, so the whole thing is a few hundred circles and
-  no image. The 12 check regions sit on top as beacons that light up in sequence,
-  and three of them draw arcs to the region that is currently degraded (Frankfurt).
+  A dotted world map. Continents are rough polygons in lon/lat; a 3° grid is tested
+  against them, so the whole thing is one path of dots and no image. The 12 check
+  regions sit on top as beacons that light up in sequence, and three of them draw arcs
+  to the region that is currently degraded (Frankfurt).
+
+  It is a client component on purpose: server components are serialised twice (HTML
+  plus the React payload), and at ~28 KB per map that doubling was a third of the
+  home page. As a client component the map is sent once and costs ~3 KB of script.
 */
 
 type Poly = [number, number][];
@@ -59,13 +65,22 @@ const H = 520;
 const px = (lon: number) => ((lon + 180) / 360) * W;
 const py = (lat: number) => ((84 - lat) / 150) * H;
 
-const dots: [number, number][] = [];
-for (let lat = 82; lat >= -56; lat -= 3) {
-  for (let lon = -178; lon <= 180; lon += 3) {
-    const p: [number, number] = [lon + (lat % 6 === 0 ? 0 : 1.5), lat];
-    if (land.some((poly) => inside(p, poly))) dots.push([px(p[0]), py(p[1])]);
+/*
+  Every land dot as one path: a zero-length segment with a round cap draws a disc of
+  stroke-width. One element instead of ~900 circles keeps the HTML a tenth of the size,
+  which matters because the map is on the home page twice.
+*/
+const DOT_R = 1.6;
+const dotPath = (() => {
+  let d = "";
+  for (let lat = 82; lat >= -56; lat -= 3) {
+    for (let lon = -178; lon <= 180; lon += 3) {
+      const p: [number, number] = [lon + (lat % 6 === 0 ? 0 : 1.5), lat];
+      if (land.some((poly) => inside(p, poly))) d += `M${px(p[0]).toFixed(1)} ${py(p[1]).toFixed(1)}h0`;
+    }
   }
-}
+  return d;
+})();
 
 const coords: Record<string, [number, number]> = {
   Virginia: [-78, 38],
@@ -94,13 +109,10 @@ function arc(a: [number, number], b: [number, number]) {
 }
 
 export function WorldMap({ className = "", dark = false }: { className?: string; dark?: boolean }) {
-  const dot = dark ? "fill-signal-3/30" : "fill-ink/[0.11]";
   const t = [px(coords[target][0]), py(coords[target][1])] as [number, number];
   return (
     <svg aria-hidden="true" viewBox={`0 0 ${W} ${H}`} className={className} preserveAspectRatio="xMidYMid meet">
-      {dots.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={1.6} className={dot} />
-      ))}
+      <path d={dotPath} fill="none" strokeWidth={DOT_R * 2} strokeLinecap="round" className={dark ? "stroke-signal-3/30" : "stroke-ink/10"} />
       {confirmers.map((name, i) => {
         const c = coords[name];
         return (

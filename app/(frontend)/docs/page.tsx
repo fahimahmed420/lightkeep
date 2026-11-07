@@ -34,7 +34,7 @@ export default async function DocsHome() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         {docs.map((d, i) => (
           <Link key={d.id} href={`/docs/${d.slug}`} data-reveal style={{ ["--d" as string]: `${(i % 2) * 70}ms` }} className="group rounded-2xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]">
-            <p className="flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-signal">
+            <p className="flex items-center gap-2 font-mono text-[0.75rem] uppercase tracking-[0.2em] text-signal">
               <span aria-hidden="true">{sectionGlyph[d.section] ?? "•"}</span> {sectionNames[d.section] ?? d.section}
             </p>
             <h2 className="mt-3 text-2xl group-hover:text-signal-2">{d.title}</h2>

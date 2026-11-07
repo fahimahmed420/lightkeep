@@ -31,6 +31,11 @@ DATABASE_URI, PAYLOAD_SECRET, NEXT_PUBLIC_SITE_URL, RESEND_API_KEY, DEMO_TO_EMAI
 - CMS round trip (11/11): sign-in, draft with auto slug, draft hidden publicly (404), editor preview, publish → live on page, index and RSS, status.json, admin loads.
 - Fixed during testing: alert card covering the hero's degraded monitor; article width override; browser-bar dots overlapping on phones; favicon 404.
 
+## Tests (7 Nov 2026, production build, Chrome emulation)
+- 18 routes at 375px: 0 sideways scroll, 0 text under 12px, 0 console errors. Mobile menu, pricing toggle, docs search and demo form (validation and offline fallback) driven from the DOM.
+- Fixed: header CTAs wrapped onto two lines at 1024px; product-mock labels were 11.2px; status page "last incident" was a hard-coded relative date.
+- Faster: dropped the Fraunces SOFT axis and the unused width axis (preloaded fonts 200 KB → 120 KB); world map is one path instead of ~900 circles and a client component so it is not serialised twice (home HTML 436 KB → 374 KB); blog post data read once per request.
+
 ## Measured numbers
 | Date | Tool | Page | Perf | A11y | SEO | JS KB |
 |---|---|---|---|---|---|---|

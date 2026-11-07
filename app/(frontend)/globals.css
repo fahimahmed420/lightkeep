@@ -69,14 +69,10 @@ h3 {
   font-weight: 420;
   letter-spacing: -0.025em;
   text-wrap: balance;
-  font-variation-settings:
-    "opsz" 144,
-    "SOFT" 30;
+  font-variation-settings: "opsz" 144;
 }
 h3 {
-  font-variation-settings:
-    "opsz" 72,
-    "SOFT" 30;
+  font-variation-settings: "opsz" 72;
 }
 p {
   text-wrap: pretty;
@@ -296,22 +292,6 @@ p {
 .blink {
   animation: blink 1.4s steps(1) infinite;
 }
-@keyframes sweep {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(260%);
-  }
-}
-.sweep::after {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  width: 40%;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.5), transparent);
-  animation: sweep 2.6s ease-in-out 1s infinite;
-}
 @keyframes lightup {
   0%,
   100% {
@@ -432,8 +412,7 @@ p {
   .beacon {
     opacity: 0.9;
   }
-  .beacon-ring,
-  .sweep::after {
+  .beacon-ring {
     display: none;
   }
   .marquee {

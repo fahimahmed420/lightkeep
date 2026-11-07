@@ -43,7 +43,7 @@ function BrowserBar({ url }: { url: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-line-2" />
         <span className="h-2.5 w-2.5 rounded-full bg-line-2" />
       </div>
-      <p className="min-w-0 flex-1 truncate rounded-md bg-white/80 px-3 py-1 text-center font-mono text-[0.72rem] text-muted ring-1 ring-line">{url}</p>
+      <p className="min-w-0 flex-1 truncate rounded-md bg-white/80 px-3 py-1 text-center font-mono text-[0.75rem] text-muted ring-1 ring-line">{url}</p>
       <span className="hidden w-10 sm:block" />
     </div>
   );
@@ -62,7 +62,7 @@ export function DashboardMock({ compact = false, live = false }: { compact?: boo
           ["Open incidents", "1", "text-amber"],
         ].map(([k, v, c], i) => (
           <div key={i} className="min-w-0 px-3 py-3 sm:px-5 sm:py-4">
-            <p className="truncate text-[0.7rem] uppercase tracking-wider text-muted sm:text-[0.72rem]">{k as string}</p>
+            <p className="truncate text-[0.75rem] uppercase tracking-wider text-muted sm:text-[0.75rem]">{k as string}</p>
             <p className={`mt-0.5 truncate font-mono text-base tabular-nums sm:text-2xl ${c as string}`}>{v as React.ReactNode}</p>
           </div>
         ))}
@@ -89,7 +89,7 @@ export function DashboardMock({ compact = false, live = false }: { compact?: boo
         ))}
       </ul>
       {!compact && (
-        <div className="flex items-center justify-between border-t border-line bg-cloud/50 px-4 py-2 font-mono text-[0.7rem] text-muted sm:px-5">
+        <div className="flex items-center justify-between border-t border-line bg-cloud/50 px-4 py-2 font-mono text-[0.75rem] text-muted sm:px-5">
           <span className="flex items-center gap-2">
             <span className="blink inline-block h-1.5 w-1.5 rounded-full bg-signal" /> Checking from 12 regions · next in 14s
           </span>
@@ -106,7 +106,7 @@ export function AlertCard({ className = "" }: { className?: string }) {
       <div className="flex items-center gap-2">
         <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#4a154b] font-mono text-xs font-bold text-white">#</span>
         <p className="text-sm font-medium text-ink">#oncall-platform</p>
-        <span className="ml-auto font-mono text-[0.7rem] text-muted">now</span>
+        <span className="ml-auto font-mono text-[0.75rem] text-muted">now</span>
       </div>
       <p className="mt-3 text-sm leading-snug text-ink-2">
         <span className="font-semibold text-amber">Degraded:</span> eu.api.parcelry.com responding in 912 ms from Frankfurt (threshold 500 ms). Confirmed from 3 regions.
@@ -125,7 +125,7 @@ export function StatusPageMock({ compact = false }: { compact?: boolean }) {
     <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[var(--shadow-float)]">
       <div className="flex items-center justify-between bg-[#1d3557] px-6 py-4 text-white">
         <p className="font-display text-xl">Parcelry status</p>
-        <span className="rounded-full border border-white/20 px-2.5 py-0.5 font-mono text-[0.7rem] text-white/80">status.parcelry.com</span>
+        <span className="rounded-full border border-white/20 px-2.5 py-0.5 font-mono text-[0.75rem] text-white/80">status.parcelry.com</span>
       </div>
       <div className="p-5 sm:p-6">
         <div className="flex items-center gap-3 rounded-xl bg-signal-soft px-4 py-3 text-signal-2">
@@ -186,7 +186,7 @@ export function LatencyChart({ className = "h-56", dark = false, seeds = regionL
           </text>
         ))}
       </svg>
-      <ul className="absolute right-2 top-2 flex flex-wrap justify-end gap-x-3 gap-y-1 font-mono text-[0.7rem]">
+      <ul className="absolute right-2 top-2 flex flex-wrap justify-end gap-x-3 gap-y-1 font-mono text-[0.75rem]">
         {seeds.map(([name, , color]) => (
           <li key={name} className={`flex items-center gap-1.5 ${dark ? "text-fog" : "text-muted"}`}>
             <span className="h-1.5 w-3 rounded-full" style={{ background: color }} /> {name}
